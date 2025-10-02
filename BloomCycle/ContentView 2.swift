@@ -80,13 +80,13 @@ struct FoodTracker: View {
                 RoundedCorner(radius: 30, corners: [.topLeft, .topRight])
                     .fill(Color.white)
                     .frame(maxWidth: .infinity)
-                    .ignoresSafeArea(edges: .bottom)
+                     .ignoresSafeArea(edges: .bottom)
                     .frame(height: 600)
                     
 
                 Text("No meals yet, \nAdd your meal!")
                     .font(.system(size: 26, weight: .bold))
-                    .foregroundColor(.lbrown)
+                    .foregroundColor(.dbrown)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
