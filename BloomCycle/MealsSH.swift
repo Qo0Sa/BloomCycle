@@ -195,9 +195,11 @@ func iconForType(_ type: String) -> String {
                                                 Text(meal.type + ": "+meal.name )
                                                     .font(.body)
                                                     .foregroundColor(.dbrown)
-                                                Text(dateTimeFormatter.string(from: meal.time))
-                                                    .font(.caption)
-                                                    .foregroundColor(.gray)
+                                                    .strikethrough(meal.isCompleted, color: .dbrown)
+                                                    .opacity(meal.isCompleted ? 0.6 : 1.0)
+//                                                Text(dateTimeFormatter.string(from: meal.time))
+//                                                    .font(.caption)
+//                                                    .foregroundColor(.gray)
                                             }
                                             
                                             Spacer()
