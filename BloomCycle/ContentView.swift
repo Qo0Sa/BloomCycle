@@ -37,8 +37,8 @@ struct ContentView: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                                HStack(spacing: 20) {
-                                   CardView(title: "Needs", color: .greenn, borderColor: .br, imageName: "NEED",subTitle: " Replace blood loss (iron + vitamin C)")
-                                   CardView(title: "Foods", color: .greenn, borderColor: .br, imageName: "FOOD",subTitle: " Spinach, lentils, red meat, liver, oranges, strawberries")
+                                   CardView(title: "Needs", color: .greenn, borderColor: .br, imageName: "NEED",subTitle: "The body needs iron and vitamin C to replace blood loss and reduce fatigue")
+                                   CardView(title: "Foods", color: .greenn, borderColor: .br, imageName: "FOOD",subTitle: "Spinach lentils red meat oranges and strawberries provide iron and vitamin C to help restore energy")
                                   
                                }
                 
@@ -88,7 +88,7 @@ struct CardView: View {
             .padding(.horizontal, 10) // padding من الجوانب
 
         }
-        .frame(width: 300, height: 350)
+        .frame(width: 300, height: 400)
         .background(color) // لون خلفية الكارد
         .cornerRadius(16)
         .overlay(
