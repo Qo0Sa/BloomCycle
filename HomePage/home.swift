@@ -36,106 +36,114 @@ struct ContentView: View {
                         .frame(width: proxy.size.width, height: proxy.size.height, alignment: .top)
                         .ignoresSafeArea()
                 }
-
+                
                 //Center Content (Cycle status)
                 VStack {
                     CycleStatusView()
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                        .padding(.bottom, 460)
+                        .padding(.bottom, 440)
                 }
+                
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .ignoresSafeArea(.keyboard, edges: .all)
+                
+                
+                //calendar 📅
+                .overlay(alignment: .topTrailing) {
+                    NavigationLink {
+                        CalendarScreen()
+                    }
+                    label: {
+                        Image(systemName: "calendar")
+                            .font(.system(size: 32, weight: .semibold))
+                            .foregroundColor(Color.darkbrown)
+                            .padding(8)
+                    }
+                    .padding(.top, -60)
+                    .padding(.trailing, 10)
+                }
+                
+                // Hello + name 🙋‍♀️
+                .safeAreaInset(edge: .top) {
+                    HStack {
+                        Text("Hello!")
+                            .font(.title).fontWeight(.bold)
+                            .foregroundColor(Color.darkbrown)
+                        
+                        TextField("Name", text: $userName)
+                            .font(.title).fontWeight(.bold)
+                            .foregroundColor(userName.isEmpty ? .gray : Color.darkbrown)
+                            .underline(userName.isEmpty, color: .gray)
+                            .frame(maxWidth: 150)
+                            .focused($nameFocused) // 📌 connects to FocusState above
+                            .submitLabel(.done)
+                    }
+                    .fixedSize() // 📌 Avoids unexpected line wraps
+                    .padding(.top, 10)
+                    .background(Color.clear)
+                }
+                
+                //"My Cycle" button 🟩
+                .overlay(alignment: .top) {
+                    Button { cyclesheet.toggle() } label: {
+                        Text("My Cycle")
+                            .font(.headline)
+                            .foregroundColor(Color.darkbrown)
+                            .padding(.vertical, 16)
+                            .padding(.horizontal, 36)
+                            .background(RoundedRectangle(cornerRadius: 16).fill(Color.ourgreen))
+                            .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.black.opacity(0.15), lineWidth: 2))
+                            .shadow(color: .black.opacity(0.2), radius: 6, x: 0, y: 4)
+                    }
+                    .padding(.top, 350)
+                }
+                
+                // food + recommendations buttons 🍕
+                VStack {
+                    HStack(spacing: 24) {
+                        Button {
+                            // 🛑Navigate to Food Tracking
+                        } label: {
+                            VStack(spacing: 24) {
+                                Image("food_image_home")
+                                    .resizable().scaledToFit().frame(height: 100)
+                                Text("Food track")
+                                    .font(.subheadline).foregroundColor(Color.darkbrown)
+                            }
+                            .padding(.vertical, 16)
+                            .frame(maxWidth: .infinity, minHeight: 240)
+                            .background(RoundedRectangle(cornerRadius: 16).fill(Color.eggshell))
+                            .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.darkbrown.opacity(0.15), lineWidth: 2))
+                            .shadow(color: .black.opacity(0.2), radius: 6, x: 0, y: 4)
+                        }
+
+                        Button {
+                            // 🛑Navigate to Recommendations
+                        } label: {
+                            VStack(spacing: 24) {
+                                Image("recomm_image_home")
+                                    .resizable().scaledToFit().frame(height: 100)
+                                Text("recommendations")
+                                    .font(.subheadline).foregroundColor(Color.darkbrown)
+                            }
+                            .padding(.vertical, 16)
+                            .frame(maxWidth: .infinity, minHeight: 240)
+                            .background(RoundedRectangle(cornerRadius: 16).fill(Color.eggshell))
+                            .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.darkbrown.opacity(0.15), lineWidth: 2))
+                            .shadow(color: .black.opacity(0.2), radius: 6, x: 0, y: 4)
+                        }
+                    }
+                    .padding(.horizontal, 24)
+                    .padding(.bottom, 50)
+                    .background(Color.clear)
+                    .zIndex(10)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+                .ignoresSafeArea(.keyboard, edges: .bottom)
             }
-            .frame(width: geo.size.width, height: geo.size.height)
             .ignoresSafeArea(.keyboard, edges: .all)
-
-            //calendar 📅
-            .overlay(alignment: .topTrailing) {
-                Button {
-                    // 🛑 Navigate to Calendar screen here
-                } label: {
-                    Image(systemName: "calendar")
-                        .font(.system(size: 32, weight: .semibold))
-                        .foregroundColor(Color.darkbrown)
-                        .padding(8)
-                }
-                .padding(.top, -60)
-                .padding(.trailing, 10)
-            }
-
-            // Hello + name 🙋‍♀️
-            .safeAreaInset(edge: .top) {
-                HStack {
-                    Text("Hello!")
-                        .font(.title).fontWeight(.bold)
-                        .foregroundColor(Color.darkbrown)
-
-                    TextField("Name", text: $userName)
-                        .font(.title).fontWeight(.bold)
-                        .foregroundColor(userName.isEmpty ? .gray : Color.darkbrown)
-                        .underline(userName.isEmpty, color: .gray)
-                        .frame(maxWidth: 150)
-                        .focused($nameFocused) // 📌 connects to FocusState above
-                        .submitLabel(.done)
-                }
-                .fixedSize() // 📌 Avoids unexpected line wraps
-                .padding(.top, 10)
-                .background(Color.clear)
-            }
-
-            //"My Cycle" button 🟩
-            .overlay(alignment: .top) {
-                Button { cyclesheet.toggle() } label: {
-                    Text("My Cycle")
-                        .font(.headline)
-                        .foregroundColor(Color.darkbrown)
-                        .padding(.vertical, 16)
-                        .padding(.horizontal, 36)
-                        .background(RoundedRectangle(cornerRadius: 16).fill(Color.ourgreen))
-                        .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.black.opacity(0.15), lineWidth: 2))
-                        .shadow(color: .black.opacity(0.2), radius: 6, x: 0, y: 4)
-                }
-                .padding(.top, 350)
-            }
-
-            // food + recommendations buttons 🍕
-            .overlay(alignment: .bottom) {
-                HStack(spacing: 24) {
-                    Button {
-                        //🛑 Navigate to Food Tracking page
-                    } label: {
-                        VStack(spacing: 24) {
-                            Image("food_image_home")
-                                .resizable().scaledToFit().frame(height: 100)
-                            Text("Food track")
-                                .font(.subheadline).foregroundColor(Color.darkbrown)
-                        }
-                        .padding(.vertical, 16)
-                        .frame(maxWidth: .infinity, minHeight: 240)
-                        .background(RoundedRectangle(cornerRadius: 16).fill(Color.eggshell))
-                        .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.darkbrown.opacity(0.15), lineWidth: 2))
-                        .shadow(color: .black.opacity(0.2), radius: 6, x: 0, y: 4)
-                    }
-
-                    Button {
-                        // 🛑Navigate to Recommendations page
-                    } label: {
-                        VStack(spacing: 24) {
-                            Image("recomm_image_home")
-                                .resizable().scaledToFit().frame(height: 100)
-                            Text("recommendations")
-                                .font(.subheadline).foregroundColor(Color.darkbrown)
-                        }
-                        .padding(.vertical, 16)
-                        .frame(maxWidth: .infinity, minHeight: 240)
-                        .background(RoundedRectangle(cornerRadius: 16).fill(Color.eggshell))
-                        .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.darkbrown.opacity(0.15), lineWidth: 2))
-                        .shadow(color: .black.opacity(0.2), radius: 6, x: 0, y: 4)
-                    }
-                }
-                .padding(.horizontal, 24)
-                .padding(.bottom, 100)
-                .background(Color.clear)
-                .zIndex(10) //📌 Ensure cards render above the central VStack if overlaps occur.
-            }
+            .contentShape(Rectangle())
+            .onTapGesture { nameFocused = false }
         }
         //Sheet for “My Cycle”
         .sheet(isPresented: $cyclesheet) {
@@ -279,48 +287,50 @@ struct CycleStatusView: View {
 
     var body: some View {
         VStack(spacing: 10) {
-            if let start = isoToDate(lastPeriodStartISO),
-               (20...45).contains(cycleLength) {
+            if let start = isoToDate(lastPeriodStartISO), (20...45).contains(cycleLength) {
 
-                let today = Date()
-                let d = dayInCycle(from: start, today: today, cycleLength: cycleLength)
+                let today    = Date()
+                let d        = dayInCycle(from: start, on: today, cycleLength: cycleLength)
                 let daysLeft = max(0, cycleLength - d)
 
-                let cuts = phaseCuts(
+                let cuts     = phaseCuts(
                     cycleLength: cycleLength,
                     menstrualDays: menstrualDays,
                     lutealDays: lutealDays,
                     ovulationDays: ovulationDays
                 )
 
-                let phase = phaseName(dayInCycle: d, cuts: cuts)
-                let inPhase = dayInPhase(dayInCycle: d, cuts: cuts)
+                let phase    = phaseName(dayInCycle: d, cuts: cuts)
+                let inPhase  = dayInPhase(dayInCycle: d, cuts: cuts)
 
                 // Big number = “day within current phase”
-                //📌 .contentTransition(.numericText()) animates number changes smoothly in iOS 17+.
                 Text("\(inPhase)")
                     .font(.system(size: 56, weight: .bold, design: .rounded))
-                    .foregroundStyle(Color.darkbrown)
-                    .contentTransition(.numericText())
+                    .foregroundColor(Color.darkbrown)
                     .padding(.top, 16)
 
-                Text(phase)
+                Text(phase.displayName)
                     .font(.headline)
-                    .foregroundStyle(.darkbrown)
+                    .foregroundColor(Color.darkbrown)
 
-                Text(daysLeft == 0
-                     ? "next Menstrual phase is tomorrow"
-                     : "\(daysLeft) day\(daysLeft == 1 ? "" : "s") until next Menstrual phase")
+                let label: String = {
+                    if daysLeft == 0 { return "next Menstrual phase is tomorrow" }
+                    return "\(daysLeft) day\(daysLeft == 1 ? "" : "s") until next Menstrual phase"
+                }()
+
+                Text(label)
                     .font(.caption)
-                    .foregroundStyle(.darkbrown)
+                    .foregroundColor(Color.darkbrown)
                     .padding(.top, 2)
+
             } else {
                 Text("--")
                     .font(.system(size: 56, weight: .bold, design: .rounded))
-                    .foregroundStyle(Color.darkbrown.opacity(0.4))
-                Text("Start by Adding Your Cycle!")
+                    .foregroundColor(Color.darkbrown.opacity(0.4))
+
+                Text("Start by Adding Your Cycle!!")
                     .font(.subheadline)
-                    .foregroundStyle(.darkbrown)
+                    .foregroundColor(Color.darkbrown)
             }
         }
         .frame(maxWidth: .infinity)
@@ -329,68 +339,6 @@ struct CycleStatusView: View {
         .accessibilityLabel("Day in cycle and current phase")
         .ignoresSafeArea(.keyboard, edges: .all)
     }
-}
-
-
-// Phase Logic
-struct PhaseCuts {
-    let mEnd: Int
-    let oStart: Int
-    let oEnd: Int
-    let lStart: Int
-}
-
-func phaseCuts(cycleLength L: Int,
-               menstrualDays M: Int,
-               lutealDays Luteal: Int,
-               ovulationDays O: Int = 2) -> PhaseCuts
-{
-    //📌 Clamping to sensible medical-ish ranges prevents invalid setups from breaking UI.
-    let Lc  = max(20, min(45, L))
-    let Mc  = max(2,  min(10, M))
-    let Lut = max(11, min(17, Luteal))
-    let Oc  = max(1,  min(3,  O))
-
-    let mEnd   = Mc
-    let lStart = Lc - Lut + 1
-
-    let oEnd   = max(mEnd + 1, lStart - 1)
-    let oStart = max(mEnd + 1, oEnd - (Oc - 1))
-    return PhaseCuts(mEnd: mEnd, oStart: oStart, oEnd: oEnd, lStart: lStart)
-}
-
-func phaseName(dayInCycle d: Int, cuts: PhaseCuts) -> String {
-    if d <= cuts.mEnd { return "Menstrual" }
-    if d >= cuts.lStart { return "Luteal" }
-    if d >= cuts.oStart && d <= cuts.oEnd { return "Ovulation" }
-    return "Follicular"
-}
-
-func dayInPhase(dayInCycle d: Int, cuts: PhaseCuts) -> Int {
-    if d <= cuts.mEnd { return d }
-    if d >= cuts.lStart { return d - cuts.lStart + 1 }
-    if d >= cuts.oStart && d <= cuts.oEnd { return d - cuts.oStart + 1 }
-    return d - cuts.mEnd
-}
-
-
-// Day position in the current cycle
-private func dayInCycle(from start: Date, today: Date, cycleLength: Int) -> Int {
-    let cal = Calendar.current
-    let days = cal.dateComponents([.day], from: start.startOfDay, to: today.startOfDay).day ?? 0
-    let wrapped = ((days % cycleLength) + cycleLength) % cycleLength
-    return wrapped + 1
-}
-
-private func isoToDate(_ s: String) -> Date? {
-    guard !s.isEmpty else { return nil }
-    let f = ISO8601DateFormatter()
-    return f.date(from: s)
-}
-
-private extension Date {
-    //📌 Normalizes a Date to midnight for day-accurate math regardless of time components.
-    var startOfDay: Date { Calendar.current.startOfDay(for: self) }
 }
 
 #Preview {
