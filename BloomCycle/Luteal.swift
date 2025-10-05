@@ -1,13 +1,14 @@
 //
-//  Follicular.swift
+//  Luteal.swift
 //  BloomCycle
 //
-//  Created by Sarah on 09/04/1447 AH.
+//  Created by Sarah on 13/04/1447 AH.
 //
+
 
 import SwiftUI
 
-struct Follicular: View {
+struct Luteal: View {
     @State private var scrollOffset: CGFloat = 0
     var body: some View {
         
@@ -21,13 +22,13 @@ struct Follicular: View {
        
             VStack{
                 
-                Image("follicular")
+                Image("Luteal")
                     .resizable()
-                    .frame(width: 120, height: 150)
+                    .frame(width: 120, height: 140)
                     .padding(0.1)
                 
 
-                Text("Follicular Phase")
+                Text("Luteal Phase")
                     .font(.system(size: 30, weight: .bold, design: .default))
                     .foregroundColor(.br)
                 
@@ -40,8 +41,8 @@ struct Follicular: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 20) {
-                CardView(title: "Needs", color: .greenn, borderColor: .br, imageName: "NEED",subTitle: "The body needs protein fiber and B vitamins to boost energy and support mood")
-                    CardView(title: "Foods", color: .greenn, borderColor: .br, imageName: "FOOD",subTitle: "Eggs fish whole grains leafy greens and nuts provide nutrients that maintain stable energy and support cell renewal")
+                CardView(title: "Needs", color: .greenn, borderColor: .br, imageName: "NEED",subTitle: "The body needs magnesium and calming nutrients to relax and reduce stress before the period")
+                    CardView(title: "Foods", color: .greenn, borderColor: .br, imageName: "FOOD",subTitle: "Bananas almonds dark chocolate chamomile tea and oats provide magnesium and soothing nutrients to ease cramps and mood swings")
                                   
                                }
                 
@@ -62,5 +63,6 @@ struct Follicular: View {
 
 
 #Preview {
-    Follicular()
+    Luteal()
 }
+
